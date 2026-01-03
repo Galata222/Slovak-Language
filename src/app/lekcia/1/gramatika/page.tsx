@@ -1,3 +1,4 @@
+
 import { getLessonById, getActivity } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -40,84 +41,108 @@ export default function GrammarPage({ params }: { params: { unitId: string } }) 
                     <CardDescription>Prehľad gramatiky pre Lekciu 1.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Accordion type="single" collapsible className="w-full">
+                    <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
                         <AccordionItem value="item-1">
-                            <AccordionTrigger>Asimilácia (Spodobovanie)</AccordionTrigger>
+                            <AccordionTrigger>Asimilácia (Spodobovanie) a Konsonantické skupiny</AccordionTrigger>
                             <AccordionContent>
-                                <p className="mb-2">Neznelé spoluhlásky: P, T, Ť, K, C, Č, S, Š, C, H, F</p>
-                                <p className="mb-4">Znelé spoluhlásky: B, D, Ď, G, DZ, DŽ, Z, Ž, H, V, M, N, Ň, L, Ľ, R, J</p>
-                                <Table>
-                                    <TableHeader>
-                                        <TableRow>
-                                            <TableHead>Píšeme (Spell)</TableHead>
-                                            <TableHead>Vyslovujeme (Hear)</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
-                                        <TableRow><TableCell>hrať hru</TableCell><TableCell>[hradhru]</TableCell></TableRow>
-                                        <TableRow><TableCell>váš brat</TableCell><TableCell>[vážbrat]</TableCell></TableRow>
-                                        <TableRow><TableCell>teraz povedzte</TableCell><TableCell>[teraz povecťe]</TableCell></TableRow>
-                                        <TableRow><TableCell>podpis</TableCell><TableCell>[potpis]</TableCell></TableRow>
-                                        <TableRow><TableCell>otázka</TableCell><TableCell>[otáška]</TableCell></TableRow>
-                                        <TableRow><TableCell>sme</TableCell><TableCell>[zme]</TableCell></TableRow>
-                                    </TableBody>
-                                </Table>
+                                <div className="space-y-4">
+                                    <div>
+                                        <h4 className="font-semibold text-md mb-2">Asimilácia (znelostná asimilácia)</h4>
+                                        <p className="mb-2">Znelosť spoluhlásky sa mení v závislosti od nasledujúcej spoluhlásky.</p>
+                                        <p className="text-sm mb-2"><span className="font-semibold">Neznelé spoluhlásky:</span> P, T, Ť, K, C, Č, S, Š, CH, F</p>
+                                        <p className="text-sm mb-4"><span className="font-semibold">Znelé spoluhlásky:</span> B, D, Ď, G, DZ, DŽ, Z, Ž, H, V</p>
+                                        <Table>
+                                            <TableHeader>
+                                                <TableRow>
+                                                    <TableHead>Píšeme (Písanie)</TableHead>
+                                                    <TableHead>Vyslovujeme (Výslovnosť)</TableHead>
+                                                    <TableHead>Príklad</TableHead>
+                                                </TableRow>
+                                            </TableHeader>
+                                            <TableBody>
+                                                <TableRow><TableCell>znelá + neznelá</TableCell><TableCell>[neznelá + neznelá]</TableCell><TableCell>podpis → [potpis]</TableCell></TableRow>
+                                                <TableRow><TableCell>neznelá + znelá</TableCell><TableCell>[znelá + znelá]</TableCell><TableCell>váš brat → [vážbrat]</TableCell></TableRow>
+                                                <TableRow><TableCell>predložka s/z + samohláska</TableCell><TableCell>[z]</TableCell><TableCell>s otcom → [zotcom]</TableCell></TableRow>
+                                                <TableRow><TableCell>na konci slova</TableCell><TableCell>[neznelá]</TableCell><TableCell>hrad → [hrat]</TableCell></TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold text-md mb-2">Konsonantické skupiny (skupiny spoluhlások)</h4>
+                                        <p className="mb-2">Pravidlá pre zjednodušenie výslovnosti zložitých skupín spoluhlások.</p>
+                                         <ul className="list-disc pl-5 mt-2 space-y-1 text-sm">
+                                            <li><span className="font-semibold">Zdvojené spoluhlásky (nn, kk, jj, ...):</span> vyslovujú sa ako jedna dlhá spoluhláska. Príklad: <span className="italic">rodinný</span> → [roďi:ní].</li>
+                                            <li><span className="font-semibold">Zjednodušenie skupín:</span><ul>
+                                                <li><span className="italic">dst → [ct]</span> (napr. <span className="italic">predstaviť</span> → [prectaviť])</li>
+                                                <li><span className="italic">stsk → [sk]</span> (napr. <span className="italic">mestský</span> → [meskí])</li>
+                                            </ul></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </AccordionContent>
                         </AccordionItem>
                         <AccordionItem value="item-2">
-                            <AccordionTrigger>Konsonantické skupiny</AccordionTrigger>
-                            <AccordionContent>
-                                <p className="font-semibold">Pravidlá:</p>
-                                <ul className="list-disc pl-5 mt-2 space-y-1">
-                                    <li>nn, kk, jj, ... → [n], [k], [j] (len dlhé spoluhlásky)</li>
-                                    <li><span className="italic">rodinný</span> → [rodi:ní]</li>
-                                    <li><span className="italic">mäkký</span> → [me:kí]</li>
-                                    <li>dst → [ct]: <span className="italic">predstaviť</span> → [prectaviť]</li>
-                                    <li>stsk → [sk]: <span className="italic">mestský</span> → [meskí]</li>
-                                    <li>zsk → [sk]: <span className="italic">francúzsky</span> → [francúski]</li>
-                                    <li>stn → [stn]: <span className="italic">šťastný</span> → [šťastní]</li>
-                                </ul>
-                            </AccordionContent>
-                        </AccordionItem>
-                         <AccordionItem value="item-3">
                             <AccordionTrigger>Rytmus a kvantita (Rytmické krátenie)</AccordionTrigger>
                             <AccordionContent>
-                                <p>V slovenčine zvyčajne nenaledujú dve dlhé slabiky za sebou. Ak by mali, druhá sa skráti.</p>
+                                <p>V spisovnej slovenčine zvyčajne nenaledujú dve dlhé slabiky za sebou. Ak by mali, druhá sa automaticky skráti. Toto pravidlo sa nazýva rytmické krátenie.</p>
                                 <ul className="list-disc pl-5 mt-2 space-y-1">
-                                    <li>vol<span className="font-bold">á</span>ť sa - vol<span className="font-bold">á</span>m sa</li>
-                                    <li>d<span className="font-bold">o</span>brý večer - kr<span className="font-bold">á</span>sny večer</li>
-                                    <li>rob<span className="font-bold">i</span>ť - rob<span className="font-bold">ia</span></li>
-                                    <li>k<span className="font-bold">ú</span>piť - k<span className="font-bold">ú</span>pia</li>
+                                    <li>kr<span className="font-bold">á</span>sn<span className="font-bold">y</span> (dlhá + dlhá) → kr<span className="font-bold">á</span>sn<span className="font-bold">y</span> (správne je s krátkym 'y')</li>
+                                    <li>biely → bielych (nie bielych)</li>
+                                    <li>píšem → píšu (nie píšú)</li>
+                                    <li>volám → volajú (nie volajú)</li>
+                                    <li><span className="italic">Príklady:</span> vol<span className="font-bold">á</span>ť - vol<span className="font-bold">á</span>m, d<span className="font-bold">o</span>brý - kr<span className="font-bold">á</span>sny, rob<span className="font-bold">i</span>ť - rob<span className="font-bold">ia</span></li>
                                 </ul>
                             </AccordionContent>
                         </AccordionItem>
-                        <AccordionItem value="item-4">
+                        <AccordionItem value="item-3">
                             <AccordionTrigger>Privlastňovacie zámená (Posesívne pronominá)</AccordionTrigger>
                             <AccordionContent>
-                                <p className="font-semibold mb-2">môj, tvoj, náš, váš (skloňujú sa)</p>
-                                <Table>
-                                    <TableHeader><TableRow><TableHead>Pád</TableHead><TableHead>Mužský rod</TableHead><TableHead>Ženský rod</TableHead><TableHead>Stredný rod</TableHead></TableRow></TableHeader>
-                                    <TableBody>
-                                        <TableRow><TableCell>Nominatív</TableCell><TableCell>môj</TableCell><TableCell>moja</TableCell><TableCell>moje</TableCell></TableRow>
-                                        <TableRow><TableCell>Akuzatív</TableCell><TableCell>môjho / môj</TableCell><TableCell>moju</TableCell><TableCell>moje</TableCell></TableRow>
-                                    </TableBody>
-                                </Table>
-                                <p className="font-semibold mt-4 mb-2">jeho, jej, ich (nesklonné)</p>
-                                <p>Tieto tvary sú rovnaké pre všetky rody a pády.</p>
+                                <div className="space-y-4">
+                                     <div>
+                                        <h4 className="font-semibold text-md mb-2">Sklonné zámená: môj, tvoj, náš, váš</h4>
+                                        <p className="mb-2">Tieto zámená sa skloňujú podobne ako prídavné mená podľa vzoru <span className="italic">pekný</span>.</p>
+                                        <Table>
+                                            <TableHeader><TableRow><TableHead>Pád</TableHead><TableHead>Mužský rod (neživ.)</TableHead><TableHead>Ženský rod</TableHead><TableHead>Stredný rod</TableHead></TableRow></TableHeader>
+                                            <TableBody>
+                                                <TableRow><TableCell>Nominatív (kto? čo?)</TableCell><TableCell>môj dom</TableCell><TableCell>moja kniha</TableCell><TableCell>moje auto</TableCell></TableRow>
+                                                <TableRow><TableCell>Akuzatív (koho? čo?)</TableCell><TableCell>môj dom</TableCell><TableCell>moju knihu</TableCell><TableCell>moje auto</TableCell></TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
+                                     <div>
+                                        <h4 className="font-semibold text-md mb-2">Nesklonné zámená: jeho, jej, ich</h4>
+                                        <p>Tieto tvary sú rovnaké pre všetky rody, čísla a pády.</p>
+                                        <p className="italic mt-2">Príklad: Vidím <span className="font-semibold">jeho</span> brata, <span className="font-semibold">jej</span> sestru aj <span className="font-semibold">ich</span> auto.</p>
+                                    </div>
+                                </div>
                             </AccordionContent>
                         </AccordionItem>
-                         <AccordionItem value="item-5">
+                         <AccordionItem value="item-4">
                             <AccordionTrigger>Vzory prídavných mien: PEKNÝ vs. CUDZÍ</AccordionTrigger>
                             <AccordionContent>
-                                <p className="mb-4">Prídavné mená sa skloňujú podľa vzorov. Pre túto lekciu sú dôležité vzory 'pekný' (pre adjektíva končiace na -ný/-lý) a 'cudzí'.</p>
-                                <Table>
-                                    <TableHeader><TableRow><TableHead>Pád</TableHead><TableHead>M neživ.</TableHead><TableHead>Ženský</TableHead><TableHead>Stredný</TableHead><TableHead>M živ. (Pl)</TableHead></TableRow></TableHeader>
-                                    <TableBody>
-                                        <TableRow><TableCell>N</TableCell><TableCell>pekný</TableCell><TableCell>pekná</TableCell><TableCell>pekné</TableCell><TableCell>pekní</TableCell></TableRow>
-                                        <TableRow><TableCell>A</TableCell><TableCell>pekný</TableCell><TableCell>peknú</TableCell><TableCell>pekné</TableCell><TableCell>pekných</TableCell></TableRow>
-                                        <TableRow><TableCell>I</TableCell><TableCell>pekným</TableCell><TableCell>peknou</TableCell><TableCell>pekným</TableCell><TableCell>peknými</TableCell></TableRow>
-                                    </TableBody>
-                                </Table>
+                                <p className="mb-2">Prídavné mená sa v slovenčine skloňujú podľa vzorov. Dva základné vzory sú <span className="font-semibold">pekný</span> (pre adjektíva končiace na tvrdú alebo obojakú spoluhlásku + ý) a <span className="font-semibold">cudzí</span> (pre adjektíva končiace na mäkkú spoluhlásku + í).</p>
+                                <div className="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 className="font-semibold text-md mb-2">Vzor PEKNÝ</h4>
+                                        <Table>
+                                            <TableHeader><TableRow><TableHead>Pád</TableHead><TableHead>Mužský (neživ.)</TableHead><TableHead>Ženský</TableHead><TableHead>Stredný</TableHead></TableRow></TableHeader>
+                                            <TableBody>
+                                                <TableRow><TableCell>N</TableCell><TableCell>pekn<span className="font-bold">ý</span></TableCell><TableCell>pekn<span className="font-bold">á</span></TableCell><TableCell>pekn<span className="font-bold">é</span></TableCell></TableRow>
+                                                <TableRow><TableCell>A</TableCell><TableCell>pekn<span className="font-bold">ý</span></TableCell><TableCell>pekn<span className="font-bold">ú</span></TableCell><TableCell>pekn<span className="font-bold">é</span></TableCell></TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
+                                    <div>
+                                        <h4 className="font-semibold text-md mb-2">Vzor CUDZÍ</h4>
+                                         <Table>
+                                            <TableHeader><TableRow><TableHead>Pád</TableHead><TableHead>Mužský (neživ.)</TableHead><TableHead>Ženský</TableHead><TableHead>Stredný</TableHead></TableRow></TableHeader>
+                                            <TableBody>
+                                                <TableRow><TableCell>N</TableCell><TableCell>cudz<span className="font-bold">í</span></TableCell><TableCell>cudz<span className="font-bold">ia</span></TableCell><TableCell>cudz<span className="font-bold">ie</span></TableCell></TableRow>
+                                                <TableRow><TableCell>A</TableCell><TableCell>cudz<span className="font-bold">í</span></TableCell><TableCell>cudz<span className="font-bold">iu</span></TableCell><TableCell>cudz<span className="font-bold">ie</span></TableCell></TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
+                                </div>
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
