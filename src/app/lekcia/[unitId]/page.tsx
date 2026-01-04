@@ -5,9 +5,11 @@ import Link from "next/link";
 import { ArrowRight, Star } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Badge as UiBadge } from "@/components/ui/badge";
+import { NavButtons } from "@/components/nav-buttons";
 
 export default function UnitPage({ params }: { params: { unitId: string } }) {
-  const lesson = getLessonById(parseInt(params.unitId));
+  const lessonId = parseInt(params.unitId);
+  const lesson = getLessonById(lessonId);
 
   if (!lesson) {
     notFound();
@@ -47,6 +49,7 @@ export default function UnitPage({ params }: { params: { unitId: string } }) {
             </Link>
           ))}
         </div>
+        <NavButtons unitId={lessonId} />
       </main>
     </div>
   );
