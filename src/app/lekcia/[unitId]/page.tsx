@@ -2,7 +2,7 @@ import { getLessonById } from "@/lib/data";
 import { notFound } from "next/navigation";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { ArrowRight, Badge, Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Badge as UiBadge } from "@/components/ui/badge";
 
@@ -18,8 +18,7 @@ export default function UnitPage({ params }: { params: { unitId: string } }) {
       <header className="flex items-center gap-4 p-4 border-b">
         <SidebarTrigger className="md:hidden" />
         <div>
-          <h1 className="text-2xl font-bold font-headline">{lesson.title}</h1>
-          <p className="text-muted-foreground">{lesson.description}</p>
+          <h1 className="text-2xl font-bold font-headline">Lekcia {lesson.id}</h1>
         </div>
       </header>
 

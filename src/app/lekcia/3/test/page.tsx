@@ -1,5 +1,5 @@
 import Quiz from '@/components/ui/quiz';
-import vocabulary from '@/lib/lekcia1-vocabulary.json';
+import vocabulary from '@/lib/lekcia3-vocabulary.json';
 
 function generateQuestions() {
   const questions = Object.entries(vocabulary).map(([slovak, english]) => {
@@ -23,7 +23,7 @@ export default function TestPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold">Lekcia 1: Test</h1>
+      <h1 className="text-4xl font-bold">Lekcia 3: Test</h1>
       <Quiz questions={questions} />
     </main>
   );
