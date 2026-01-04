@@ -1,23 +1,54 @@
+'use client';
+
+import { ChatPartner } from '@/components/chat-partner';
+import PronunciationChecker from '@/components/ui/pronunciation-checker';
+import { Button } from '@/components/ui/button';
+import { SpeakerLoudIcon } from '@radix-ui/react-icons';
+import GrammarExplainer from '@/components/ui/grammar-explainer';
+
 export default function GramatikaPage() {
+  const handlePlayAudio = () => {
+    // In a real application, you would play an audio file.
+    // For this example, we'll just use text-to-speech.
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      const utterance = new SpeechSynthesisUtterance("Ahoj, ja som Peter. Vitajte na Slovensku!");
+      utterance.lang = "sk-SK";
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  const recommendedResources = "Audio CD 1 (nahrávky 12–20).";
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1 className="text-4xl font-bold">Lekcia 10: Gramatika</h1>
       <div className="text-lg">
         <h2 className="text-2xl font-bold">Grammar Notes</h2>
         <ul>
-          <li>Budúci čas slovies (dokonavé a nedokonavé).</li>
-          <li>Stupňovanie adjektív a prísloviek.</li>
-          <li>Podmienková spojka aby.</li>
+          <li>Slovosled (neutrálny a expresívny). Negácia.</li>
+          <li>Prepozície (v, na, do, z, u, od, pri, k) s lokálom, genitívom, datívom a akuzatívom.</li>
+          <li>Časovanie slovies 3. triedy (typu „rozumieť“).</li>
         </ul>
         <h2 className="text-2xl font-bold mt-8">Main phrases and expressions to learn</h2>
         <ul>
-          <li>Aké bude počasie? (What will the weather be like?).</li>
-          <li>Jednosmerný alebo spiatočný lístok? (One-way or return ticket?).</li>
-          <li>Želám vám peknú dovolenku. (I wish you a nice holiday.).</li>
+          <li>Páči sa mi... (I like...).</li>
+          <li>Mám rád... (I like...).</li>
+          <li>Nerozumiem. (I don't understand.).</li>
         </ul>
         <h2 className="text-2xl font-bold mt-8">Recommended materials to study</h2>
-        <p>Audio CD 2 (nahrávky 12–19), mapa Slovenska a Európy, predpoveď počasia.</p>
+        <p>{recommendedResources}</p>
+        <div className="flex items-center gap-4 mt-4">
+          <Button onClick={handlePlayAudio}><SpeakerLoudIcon className="mr-2" /> Listen to Dialogue</Button>
+        </div>
+        <div className="mt-8">
+          <h3 className="text-xl font-bold">Pronunciation Practice</h3>
+          <PronunciationChecker text="streda" />
+        </div>
+        <div className="mt-8">
+          <GrammarExplainer recommendedResources={recommendedResources} />
+        </div>
       </div>
+      <ChatPartner unitId={10} />
     </main>
   );
 }

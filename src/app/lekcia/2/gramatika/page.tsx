@@ -1,26 +1,65 @@
+'use client';
+
+import { ChatPartner } from '@/components/chat-partner';
+import PronunciationChecker from '@/components/ui/pronunciation-checker';
+import { Button } from '@/components/ui/button';
+import { SpeakerLoudIcon } from '@radix-ui/react-icons';
+import GrammarExplainer from '@/components/ui/grammar-explainer';
+
 export default function GramatikaPage() {
+  const handlePlayAudio = () => {
+    // In a real application, you would play an audio file.
+    // For this example, we'll just use text-to-speech.
+    if (typeof window !== 'undefined' && window.speechSynthesis) {
+      const utterance = new SpeechSynthesisUtterance(
+        'Prepáčte, kde je toaleta?'
+      );
+      utterance.lang = 'sk-SK';
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+  
+  const recommendedResources = "Audio CD 1 (nahrávky 2–5).";
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1 className="text-4xl font-bold">Lekcia 2: Gramatika</h1>
       <div className="text-lg">
         <h2 className="text-2xl font-bold">Grammar Notes</h2>
         <ul>
-          <li>Vyjadrenie záľuby pomocou rád, rada, rado / radi, rady.</li>
-          <li>Deverbatíva (slovesné podstatné mená ako čítanie, varenie).</li>
-          <li>Slovesné triedy XI. – XIV. (napr. brať, vziať, pozrieť, minúť) .</li>
-          <li>Číslovky 1, 2, 3, 4 v spojení so substantívami.</li>
-          <li>Zvratné privlastňovacie zámeno svoj.</li>
+          <li>Slovosled (neutrálny a expresívny). Negácia.</li>
+          <li>
+            Prepozície (v, na, do, z, u, od, pri, k) s lokálom, genitívom,
+            datívom a akuzatívom.
+          </li>
+          <li>Časovanie slovies 1. triedy (typu „pracovať“).</li>
         </ul>
-        <h2 className="text-2xl font-bold mt-8">Main phrases and expressions to learn</h2>
+        <h2 className="text-2xl font-bold mt-8">
+          Main phrases and expressions to learn
+        </h2>
         <ul>
-          <li>Rád/rada ťa počujem. (I'm glad to hear you.).</li>
-          <li>To znie veľmi dobre. (That sounds very good.).</li>
-          <li>To je dobrý nápad. (That's a good idea.).</li>
-          <li>Môžeš s nami počítať. (You can count on us.).</li>
+          <li>Prepáčte... (Excuse me...).</li>
+          <li>Kde je... (Where is...).</li>
+          <li>Nerozumiem. (I don't understand.).</li>
         </ul>
-        <h2 className="text-2xl font-bold mt-8">Recommended materials to study</h2>
-        <p>Audio CD 1 (nahrávky 12–19), obrázkový slovník aktivít.</p>
+        <h2 className="text-2xl font-bold mt-8">
+          Recommended materials to study
+        </h2>
+        <p>{recommendedResources}</p>
+        <div className="flex items-center gap-4 mt-4">
+          <Button onClick={handlePlayAudio}>
+            <SpeakerLoudIcon className="mr-2" /> Listen to Dialogue
+          </Button>
+        </div>
+        <div className="mt-8">
+          <h3 className="text-xl font-bold">Pronunciation Practice</h3>
+          <PronunciationChecker text="vpravo" />
+        </div>
+        <div className="mt-8">
+          <GrammarExplainer recommendedResources={recommendedResources} />
+        </div>
       </div>
+      <ChatPartner unitId={2} />
     </main>
   );
 }
