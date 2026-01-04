@@ -1,10 +1,11 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'Slovenský Spoločník',
+  title: 'Krizom-Krazom A2',
   description: 'Your AI-powered guide to mastering Slovak, based on the Krížom-krážom A2 textbook.',
 };
 
@@ -23,6 +24,9 @@ export default function RootLayout({
       <body className={cn("font-body antialiased min-h-screen")}>
         {children}
         <Toaster />
+        <footer className="text-center p-4">
+          Developed by Galata Gichile
+        </footer>
       </body>
     </html>
   );
