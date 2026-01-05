@@ -1,14 +1,17 @@
 "use client";
-
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { correctSlovakWriting, type CorrectSlovakWritingOutput } from "@/ai/flows/automated-writing-correction";
 import { Loader2, Sparkles, CheckCircle2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 import { Separator } from "./ui/separator";
+
+export interface CorrectSlovakWritingOutput {
+  correctedText: string;
+  feedback: string;
+}
 
 export function WritingCorrection() {
   const [text, setText] = useState("");
@@ -28,13 +31,21 @@ export function WritingCorrection() {
     setLoading(true);
     setResult(null);
     try {
-      const response = await correctSlovakWriting({ text });
-      setResult(response);
+      const response = await fetch("/api/check-writing", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to correct text");
+      }
+      const data = await response.json();
+      setResult(data);
     } catch (error) {
       console.error(error);
       toast({
         title: "Chyba",
-        description: "Nepodarilo sa získať opravu. Skúste to prosím znova.",
+        description: "Nepodařilo sa získať opravu. Skúste to prosím znova.",
         variant: "destructive",
       });
     } finally {
@@ -64,33 +75,37 @@ export function WritingCorrection() {
           Skontrolovať text
         </Button>
       </CardFooter>
-
       {loading && (
-         <CardContent>
-            <div className="flex items-center justify-center p-8 space-x-2 text-muted-foreground">
-                <Loader2 className="h-5 w-5 animate-spin" />
-                <span>Analyzujem text...</span>
-            </div>
-         </CardContent>
+        <CardContent>
+          <div className="flex items-center justify-center p-8 space-x-2 text-muted-foreground">
+            <Loader2 className="h-5 w-5 animate-spin" />
+            <span>Analyzujem text...</span>
+          </div>
+        </CardContent>
       )}
-
       {result && (
         <>
-            <Separator />
-            <CardContent className="space-y-6 pt-6">
-                <div>
-                    <h3 className="font-semibold text-lg mb-2 flex items-center"><CheckCircle2 className="w-5 h-5 mr-2 text-green-500" />Opravený text</h3>
-                    <div className="p-4 rounded-md border bg-secondary/50">
-                        <p className="text-base">{result.correctedText}</p>
-                    </div>
-                </div>
-                <div>
-                    <h3 className="font-semibold text-lg mb-2 flex items-center"><Sparkles className="w-5 h-5 mr-2 text-primary" />Spätná väzba</h3>
-                    <div className="p-4 rounded-md border">
-                        <p className="text-base leading-relaxed">{result.feedback}</p>
-                    </div>
-                </div>
-            </CardContent>
+          <Separator />
+          <CardContent className="space-y-6 pt-6">
+            <div>
+              <h3 className="font-semibold text-lg mb-2 flex items-center">
+                <CheckCircle2 className="w-5 h-5 mr-2 text-green-500" />
+                Opravený text
+              </h3>
+              <div className="p-4 rounded-md border bg-secondary/50">
+                <p className="text-base">{result.correctedText}</p>
+              </div>
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg mb-2 flex items-center">
+                <Sparkles className="w-5 h-5 mr-2 text-primary" />
+                Spätná väzba
+              </h3>
+              <div className="p-4 rounded-md border">
+                <p className="text-base leading-relaxed">{result.feedback}</p>
+              </div>
+            </div>
+          </CardContent>
         </>
       )}
     </Card>
