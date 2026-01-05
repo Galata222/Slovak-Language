@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 config();
 
-import '@/ai/flows/automated-writing-correction.ts';
-import '@/ai/flows/pronunciation-feedback.ts';
-import '@/ai/flows/ai-chat-partner.ts';
+export { aiChatPartnerFlow } from '@/ai/flows/ai-chat-partner';
+export { correctSlovakWritingFlow } from '@/ai/flows/automated-writing-correction';
+export { pronunciationFeedbackFlow } from '@/ai/flows/pronunciation-feedback';
