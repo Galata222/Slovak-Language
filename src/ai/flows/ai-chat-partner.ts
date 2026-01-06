@@ -65,3 +65,6 @@ const aiChatPartnerFlow = ai.defineFlow(
     return {aiResponse: output!.aiResponse};
   }
 );
+export { aiChatPartnerFlow };
+
+export { aiChatPartnerFlow };
